@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js原型和原型链</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+var Person = function(name,age) {
+   this.name = name;
+   this.age = age;
+}
+Person.prototype.run = function() {
+    console.log('running');
+}
+var me = new Person('小明',10);
+// ➀ 每个对象都有一个__proto__属性，并且指向他的prototype原型对象。
+console.log(me.__proto__===Person.prototype); // true
+// ➁ 每个构造函数都有一个prototype原型对象,prototype原型对象的constructor等于构造函数本身
+console.log(Person.prototype.constructor==Person); // true
+</script>
