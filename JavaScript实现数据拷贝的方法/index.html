@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JavaScript实现数据拷贝的方法</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.js"></script>
+<script>
+    var Person = function() {
+        return {
+            basicMessage:{
+               name:'zhangsan',
+            },
+            hobby:['coding'],
+            firstName:'zhang'
+        }
+    }
+    //---------------------------------------------方法一----------------------------------------------------------// 
+    // ①、JSON.parse(JSON.stringify(obj))方法（深拷贝）
+    var person = Person();
+    var person_1_deep = JSON.parse(JSON.stringify(person));
+    person_1_deep.firstName = 'Li';  // 字符窜类型
+    person_1_deep.basicMessage.name = 'LiSi'; // 对象类型
+    person_1_deep.hobby.push('sleepping');
+    console.log("%cJSON.parse(JSON.stringify(obj))方法（深拷贝）:","background:rgba(252,234,187,1)");
+    console.log(person);
+   //---------------------------------------------方法二----------------------------------------------------------// 
+    // ②、Object.assign()方法(浅拷贝)
+    var person = Person();
+    var person_2_deep = Object.assign({},person);
+    person_2_deep.firstName = 'Li';  // 字符窜类型
+    person_2_deep.basicMessage.name = 'LiSi'; // 对象类型
+    person_2_deep.hobby.push('sleepping');
+    console.log("%cObject.assign()方法(浅拷贝):","background:rgba(252,234,187,1)");
+    console.log(person);
+    //---------------------------------------------方法三----------------------------------------------------------// 
+    // ③、使用递归方法（深拷贝）
+    function copy(source) {
+        let target;
+        if (typeof source ==='object') {
+            target = Array.isArray(source)?[]:{};
+            for(let key in source){
+                if (source.hasOwnProperty(key)) {
+                    if (typeof source[key] !=='object') {
+                        target[key] = source[key];
+                    } else {
+                        target[key] = copy(source[key]); // 递归处理对象
+                    }
+                }
+            }
+        } else {
+            target = source;
+        }
+        return target;
+    }
+    var person = Person();
+    var person_3_deep = copy(person);
+    person_3_deep.firstName = 'Li';  // 字符窜类型
+    person_3_deep.basicMessage.name = 'LiSi'; // 对象类型
+    person_3_deep.hobby.push('sleepping');
+    console.log("%c手写递归（深拷贝）:","background:rgba(252,234,187,1)");
+    console.log(person);
+    //---------------------------------------------方法四----------------------------------------------------------// 
+    // ④、Jquery的$.extend( [deep ], target, object1 [, objectN ] )方法（deep:true深拷贝，deep:false浅拷贝）
+    // 深拷贝
+    var person = Person();
+    var person_4_deep = $.extend(true,{},person);
+    person_4_deep.firstName = 'Li';  // 字符窜类型
+    person_4_deep.basicMessage.name = 'LiSi'; // 对象类型
+    person_4_deep.hobby.push('sleepping');
+    console.log("%c$.extend（深拷贝）:","background:rgba(252,234,187,1)");
+    console.log(person);
+    // 浅拷贝
+    var person = Person();
+    var person_4_shallow = $.extend(false,{},person);
+    person_4_shallow.firstName = 'Li';  // 字符窜类型
+    person_4_shallow.basicMessage.name = 'LiSi'; // 对象类型
+    person_4_shallow.hobby.push('sleepping');
+    console.log("%c$.extend（浅拷贝）:","background:rgba(252,234,187,1)");
+    console.log(person);
+</script>
