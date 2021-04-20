@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>this的指向问题</title>
+</head>
+<body>
+    <button>this</button>
+</body>
+</html>
+<script>
+// 1、this出现在全局函数中,永远指向window
+var Car = function() {
+    console.log(this); // window
+    console.log(this.Car==window.Car,Car==window.Car); // true true
+}
+Car();
+// 2、this出现在严格模式中 永远不会指向window
+var Car = function() {
+    'use strict'
+    console.log(this); // undefined
+}
+Car();
+// 3、当某个函数为对象的一个属性时，在这个函数内部this指向这个对象
+var car = {
+    name:'丰田',
+    run() {
+        console.log(this); // {name: "丰田", run: ƒ}
+    }
+}
+car.run();
+// 4、this出现在构造函数中，指向构造函数新创建的对象
+var Car = function(name) {
+    this.name = name;
+    console.log(this); // Car {name: "亚洲龙"}
+                       // Car {name: "汉兰达"}
+}
+var myCar_1 = new Car('亚洲龙');
+var myCar_2 = new Car('汉兰达');
+// 5、当一个元素被绑定事件处理函数时，this指向被点击的这个元素
+var btn = document.querySelector('button');
+btn.onclick = function() {
+    console.log(this); // <button>this</button>
+}
+// 6、this出现在箭头函数中时，this和父级作用域的this指向相同
+const obj = {
+    Car() {
+        setTimeout(function() {
+            setTimeout(function() {
+                console.log(this); // window
+            })
+            setTimeout(()=>{
+                console.log(this); // window
+            })
+        })
+        setTimeout(() => {
+            setTimeout(function() {
+                console.log(this); // window
+            })
+            setTimeout(()=>{
+                console.log(this); // obj
+            })
+        })
+    }
+}
+obj.Car();
+</script>
