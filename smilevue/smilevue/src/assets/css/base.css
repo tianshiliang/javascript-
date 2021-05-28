@@ -1,3 +1,4 @@
+@import url('//at.alicdn.com/t/font_1096792_bmcys0234la.css');
 :root {
     --color-text: #666;
     --color-high-text: #ff5777;
@@ -22,4 +23,13 @@
     background: var(--color-background);
     color: var(--color-text);
     width: 100vw;
+  }
+  .flex{
+    display: flex;
+  }
+  .p-5{
+    padding: 5px;
+  }
+  .p-10{
+    padding: 10px;
   }
