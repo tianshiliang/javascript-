@@ -30,9 +30,14 @@
                    <div class="center">{{item.name}}</div>
              </div>
         </div>
-        <!-- 广告 -->
+        <!-- 广告 向上轮播-->
         <div>
-             <img v-lazy="'https://res.vmallres.com/pimages//pages/picImages/94352421022612425349.png'" width="100%"> 
+             
+             <swiper :options="swiperOption_advertise" style="height:35px;">
+                <swiper-slide v-for="(item,index) in list_advertise" :key="index">
+                    <img v-lazy="item" width="100%" height="100%"> 
+                </swiper-slide>
+            </swiper>
         </div>
         <!-- 商品推荐 -->
         <div>
@@ -53,6 +58,21 @@
             <div v-for="(item,index) in category" :key="index" style="border:1px solid #ddd;width:50%; ">
                 <img src="https://res.vmallres.com/pimages//pages/picImages/49043221612612234094.png" width="100%">
             </div>
+        </div>
+        <!-- 热卖商品 -->
+        <div>
+            <h4 class="center">
+                热卖商品
+            </h4>
+            <van-list>
+                <van-row gutter="20">
+                    <van-col span="12" v-for="(item,index) in category" :key="index">
+                         <img :src="item.image" width="100%">
+                         <h4 class="center">{{item.name}}</h4>
+                        <h4 class="center">￥:5000.00</h4>
+                    </van-col>
+                </van-row>
+            </van-list>
         </div>
     </div>
 </template>
@@ -92,7 +112,19 @@
                     //     stopOnLastSlide: false,
                     //     disableOnInteraction: true
                     // }// 可选选项，自动滑动
-                }
+                },
+                swiperOption_advertise:{
+                   direction: 'vertical',
+                   autoplay:{
+                       delay: 1000,
+                   }
+                },
+                list_advertise:[
+                    'https://res.vmallres.com/pimages//pages/picImages/94352421022612425349.png',
+                    'https://oimagec6.ydstatic.com/image?id=-907488703102840327&product=adpublish&format=JPEG&w=960&h=60',
+                    'https://dss0.bdstatic.com/-0U0bnSm1A5BphGlnYG/tam-ogel/a541d4553cd40894e70ccb6ad6ddb129_950_200.jpg'
+
+                ]
             }
         },
         created() {
