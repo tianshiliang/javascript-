@@ -7,7 +7,7 @@
           <van-field label="密码" clearable placeholder="请输入密码" type="password" required v-model ="password">
           </van-field>
           <div class="p-10">
-                <van-button type="primary" size="large" @click="register">马上注册</van-button>
+                <van-button type="primary" size="large" @click="register" :loading="loading">马上注册</van-button>
           </div>
          
       </van-cell-group>
@@ -17,11 +17,13 @@
 <script>
 import axios from 'axios';
 import url from '@/serviceAPI.config.js';
+import { Toast } from "vant";
 export default {
     data() {
        return {
            username:'',
-           password:''
+           password:'',
+           loading:false
        }
     },
     methods:{
@@ -29,15 +31,26 @@ export default {
             this.$router.go(-1);
         },
         register() {
+            this.loading = true;
             axios({
                 url:url.register,
                 method:'post',
                 data:{
-                    username:this.username,
+                    userName:this.username,
                     password:this.password
                 }
             }).then((res)=>{
                 console.log(res);
+                if (res.data.code==200) {
+                    Toast.success(res.data.message);
+                    this.$router.push('/');
+                } else {
+                    Toast.fail("注册失败");
+                     this.loading = false;
+                }
+            }).catch((error)=>{
+                 Toast.fail("注册失败");
+                     this.loading = false;
             })
         }
     }
