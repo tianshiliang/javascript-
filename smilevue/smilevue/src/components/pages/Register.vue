@@ -23,7 +23,7 @@ export default {
        return {
            username:'',
            password:'',
-           loading:false
+           loading:false // 防重复提交
        }
     },
     methods:{
