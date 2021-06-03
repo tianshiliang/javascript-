@@ -1,3 +1,4 @@
+
 import Vue from 'vue'
 import Router from 'vue-router'
 import ShoppingMall from '@/components/pages/ShoppingMall'
@@ -15,6 +16,11 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: () => import('@/components/pages/Register')
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: () => import('@/components/pages/Login')
     }
   ]
 })

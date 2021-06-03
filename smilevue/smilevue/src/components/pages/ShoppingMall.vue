@@ -128,12 +128,12 @@
             }
         },
         created() {
-            axios({
-                url:'https://www.easy-mock.com/mock/5ae2427800247c2aa1efe442/SmileVue/',
-                method:'get'
-            }).then((res)=>{
-                console.log(res);
-            })
+            // axios({
+            //     url:'https://www.easy-mock.com/mock/5ae2427800247c2aa1efe442/SmileVue/',
+            //     method:'get'
+            // }).then((res)=>{
+            //     console.log(res);
+            // })
         }
     }
 </script>
